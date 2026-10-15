@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://dnqjqcp1at1wh"]
 
-[ext_resource type="PackedScene" uid="uid://p3xvf2ccj72u" path="res://Scenes/wz_551.tscn" id="1_lq7nq"]
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lq7nq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -13,19 +11,23 @@ sky_material = SubResource("ProceduralSkyMaterial_lq7nq")
 background_mode = 2
 sky = SubResource("Sky_ra5jo")
 
+[sub_resource type="Texture2DRD" id="Texture2DRD_iyfvf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2spj"]
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = SubResource("Texture2DRD_iyfvf")
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_mhnx1"]
+material = SubResource("StandardMaterial3D_l2spj")
 size = Vector2(5, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mhnx1"]
 size = Vector3(5, 5, 5)
 
-[node name="Arena" type="Node3D" unique_id=9771397]
+[node name="World" type="Node3D" unique_id=9771397]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=445758406]
 environment = SubResource("Environment_nnts3")
-
-[node name="wz551" parent="." unique_id=1620226143 instance=ExtResource("1_lq7nq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052452028, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=703693479]
 transform = Transform3D(50, 0, 0, 0, 10, 0, 0, 0, 50, 0, -5, 0)
@@ -42,4 +44,5 @@ shape = SubResource("BoxShape3D_mhnx1")
 transform = Transform3D(1, 0, 0, 0, 0.26676285, 0.9637622, 0, -0.9637622, 0.26676285, 0, 0, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=669989234]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.2244172)
+transform = Transform3D(0.92802995, 0.3725056, 0, -0.3725056, 0.92802995, 0, 0, 0, 1, -1.8535163, -0.0787577, -3.2244172)
+size = Vector3(5.38501, 1, 1)

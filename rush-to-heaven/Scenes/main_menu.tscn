@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cqcxg4hmsxxlu"]
+
+[ext_resource type="Script" uid="uid://bnomeedg5echo" path="res://Scripts/main_menu.gd" id="1_28flt"]
+
+[node name="MainMenu" type="Control" unique_id=439746202]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_28flt")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1938247295]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1876679599]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=480096356]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Host" type="Button" parent="CenterContainer/VBoxContainer" unique_id=616054985]
+layout_mode = 2
+text = "Host"
+
+[node name="LineEdit" type="LineEdit" parent="CenterContainer/VBoxContainer" unique_id=162714991]
+layout_mode = 2
+placeholder_text = "IP_Adress"
+
+[node name="Join" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1702624899]
+layout_mode = 2
+text = "Join"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
