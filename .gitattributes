@@ -1,0 +1,2 @@
+/mnt/game_storage/godot/projects/project-file/rush-to-heaven/Assets filter=lfs diff=lfs merge=lfs -text
+/mnt/game_storage/godot/projects/project-file/rush-to-heaven/addons/ filter=lfs diff=lfs merge=lfs -text
