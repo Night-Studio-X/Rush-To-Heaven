@@ -7,6 +7,8 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not get_parent().is_multiplayer_authority():
+		return
 	if event is InputEventMouseMotion:
 		rotation.y -= event.relative.x * mouse_sensitivity
 		rotation.x -= event.relative.y * mouse_sensitivity
