@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bi357iin0oqvy" path="res://Assets/Prefabs/wz551_weel.png" id="2_w0yrn"]
 [ext_resource type="Script" uid="uid://dx28noayev2kq" path="res://Scripts/camera_spring.arm.gd" id="4_37ebw"]
 [ext_resource type="Script" uid="uid://mwrujdm2whfn" path="res://Scripts/aiming_controller.gd" id="5_vtlgq"]
+[ext_resource type="Script" uid="uid://x16cpiaffi27" path="res://Scripts/machine_gun.gd" id="6_lioxx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hq6ry"]
 resource_name = "Material #3141"
@@ -420,6 +421,12 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("body/turretPivot:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("body/turretPivot/gunPivot:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="wz551" type="VehicleBody3D" unique_id=1620226143]
 mass = 100.0
@@ -512,10 +519,13 @@ mesh = SubResource("ArrayMesh_heurr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00075329543, -0.059973102, -0.013728352)
 mesh = SubResource("ArrayMesh_e6t4r")
 
+[node name="Muzzle" type="Marker3D" parent="body/turretPivot/gunPivot" unique_id=2013571337]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0014673114, 0.003565628, -0.039878454)
+
 [node name="DrawCall_0725" type="Node3D" parent="body" unique_id=84711686]
 
 [node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=304477920]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.40301108, -0.0036067069)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0.5684817, 0.07949573)
 spring_length = 0.2
 script = ExtResource("4_37ebw")
 
@@ -537,3 +547,7 @@ turret_pivot = NodePath("../body/turretPivot")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1204556082]
 replication_config = SubResource("SceneReplicationConfig_vtlgq")
+
+[node name="MachineGun" type="Node" parent="." unique_id=2059828563 node_paths=PackedStringArray("muzzle")]
+script = ExtResource("6_lioxx")
+muzzle = NodePath("../body/turretPivot/gunPivot/Muzzle")

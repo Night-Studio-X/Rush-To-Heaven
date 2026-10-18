@@ -6,7 +6,10 @@ extends Node3D
 @export var turret_speed: float = 90.0
 
 func _process(delta: float) -> void:
-	var cursor_pos = get_viewport().get_mouse_position()
+	
+	if not is_multiplayer_authority():
+		return
+	var cursor_pos = get_viewport().get_viewport().get_visible_rect().size / 2.0
 	
 	var ray_origin = camera.project_ray_origin(cursor_pos)
 	var ray_direction = camera.project_ray_normal(cursor_pos)
