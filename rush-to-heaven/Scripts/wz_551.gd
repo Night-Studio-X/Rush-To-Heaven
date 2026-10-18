@@ -35,17 +35,29 @@ const MAX_STEERING_SPEED: float = 15.0
 const STABILITY_STRENGTH: float = 8.0
 
 
+
 # বর্তমান steering-এর মান
 var current_steering: float = 0.0
 
+func _enter_tree()->void:
+	set_multiplayer_authority(name.to_int())
 
+func _ready() -> void:
+	$SpringArm3D/Camera3D.current = is_multiplayer_authority()
+	print("vehicle: ", name, " | authority: ", get_multiplayer_authority(), " | me: ", multiplayer.get_unique_id())
 func _physics_process(delta: float) -> void:
+	if Input.is_action_pressed("move_forward"):
+		print("W pressed | car ", name, " | peer ", multiplayer.get_unique_id(), " | authority? ", is_multiplayer_authority())
+
+	if not is_multiplayer_authority():
+		return
 
 	# সামনে ও পেছনে চলার input
 	var throttle := Input.get_axis(
 		"move_forward",
 		"move_backward"
 	)
+	
 
 	# গাড়ির বর্তমান গতি (m/s)
 	var speed := linear_velocity.length()

@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dnqjqcp1at1wh"]
 
+[ext_resource type="Script" uid="uid://df240glaho3te" path="res://Scripts/world.gd" id="1_a02cp"]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lq7nq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -25,6 +27,7 @@ size = Vector2(5, 5)
 size = Vector3(5, 5, 5)
 
 [node name="World" type="Node3D" unique_id=9771397]
+script = ExtResource("1_a02cp")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=445758406]
 environment = SubResource("Environment_nnts3")
@@ -46,3 +49,10 @@ transform = Transform3D(1, 0, 0, 0, 0.26676285, 0.9637622, 0, -0.9637622, 0.2667
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=669989234]
 transform = Transform3D(0.92802995, 0.3725056, 0, -0.3725056, 0.92802995, 0, 0, 0, 1, -1.8535163, -0.0787577, -3.2244172)
 size = Vector3(5.38501, 1, 1)
+
+[node name="Players" type="Node3D" parent="." unique_id=603863092]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1211125225]
+_spawnable_scenes = PackedStringArray("uid://p3xvf2ccj72u")
+spawn_path = NodePath("../Players")
+spawn_limit = 10

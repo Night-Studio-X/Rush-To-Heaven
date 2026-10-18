@@ -1,6 +1,6 @@
 extends Control
 
-const PORT = 9999
+
 @onready var ip_input = $CenterContainer/VBoxContainer/LineEdit
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,29 +14,26 @@ func _process(delta: float) -> void:
 
 
 func _on_host_pressed() -> void:
-	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(PORT)
-	if error !=  OK:
-		print('Failed to create server',error)
-		return
-	multiplayer.multiplayer_peer = peer
+	var error = NetworkManager.host()
+	if error != OK:
+		print('There is an error creating server',error)
+		return 
 	print('Host server created.')
+	get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
 
 func _on_join_pressed() -> void:
 	var ip = ip_input.text
 	if ip == "":
 		ip = "127.0.0.1"
-	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(ip,PORT)
-	
+	var error = NetworkManager.join(ip)
 	if error != OK:
-		print('Error joining the server',error)
-		
-	multiplayer.multiplayer_peer = peer
+		print('Error joining the server.',error)
+		return 
 	print('Connecting to the server.', ip)
 	
 func _on_connected_ok():
 	print('Connected to the server.')
+	get_tree().change_scene_to_file("res://Scenes/world.tscn")
 func _on_connected_failed():
 	print('Failed to connect to the server.')
