@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dx28noayev2kq" path="res://Scripts/camera_spring.arm.gd" id="4_37ebw"]
 [ext_resource type="Script" uid="uid://mwrujdm2whfn" path="res://Scripts/aiming_controller.gd" id="5_vtlgq"]
 [ext_resource type="Script" uid="uid://x16cpiaffi27" path="res://Scripts/machine_gun.gd" id="6_lioxx"]
+[ext_resource type="PackedScene" uid="uid://bkfg0b6jdlrmh" path="res://Components/12.7mm.tscn" id="7_jbsop"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hq6ry"]
 resource_name = "Material #3141"
@@ -520,7 +521,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00075329543, -0.059973102, 
 mesh = SubResource("ArrayMesh_e6t4r")
 
 [node name="Muzzle" type="Marker3D" parent="body/turretPivot/gunPivot" unique_id=2013571337]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0014673114, 0.003565628, -0.039878454)
+transform = Transform3D(1, 0, 0, 0, 0.9884893, 0.15129164, 0, -0.15129164, 0.9884893, -0.002976048, 0.0033632584, -0.041765064)
 
 [node name="DrawCall_0725" type="Node3D" parent="body" unique_id=84711686]
 
@@ -551,3 +552,6 @@ replication_config = SubResource("SceneReplicationConfig_vtlgq")
 [node name="MachineGun" type="Node" parent="." unique_id=2059828563 node_paths=PackedStringArray("muzzle")]
 script = ExtResource("6_lioxx")
 muzzle = NodePath("../body/turretPivot/gunPivot/Muzzle")
+bullet_scene = ExtResource("7_jbsop")
+
+[node name="bullets" type="Node3D" parent="MachineGun" unique_id=997301414]

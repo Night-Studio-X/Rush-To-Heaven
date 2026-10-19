@@ -1,0 +1,8 @@
+Model Information:
+* title:	Bullet Pack N°1
+* source:	https://sketchfab.com/3d-models/bullet-pack-n1-5e708b9071d2427ba3ae7324dcbdbf0c
+* author:	Alexio31 (https://sketchfab.com/Alexio31)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
