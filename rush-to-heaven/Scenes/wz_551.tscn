@@ -7,6 +7,9 @@
 [ext_resource type="Script" uid="uid://mwrujdm2whfn" path="res://Scripts/aiming_controller.gd" id="5_vtlgq"]
 [ext_resource type="Script" uid="uid://x16cpiaffi27" path="res://Scripts/machine_gun.gd" id="6_lioxx"]
 [ext_resource type="PackedScene" uid="uid://bkfg0b6jdlrmh" path="res://Components/12.7mm.tscn" id="7_jbsop"]
+[ext_resource type="Script" uid="uid://dk8sgo3hqbtlr" path="res://Scripts/mouse_crossair.gd" id="8_4xs7p"]
+[ext_resource type="Script" uid="uid://d22kcnk1ag3ov" path="res://Scripts/health_bar.gd" id="9_7tw2q"]
+[ext_resource type="Script" uid="uid://d0xppbssf5lcs" path="res://Scripts/health.gd" id="9_kmdgl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hq6ry"]
 resource_name = "Material #3141"
@@ -429,6 +432,17 @@ properties/3/path = NodePath("body/turretPivot/gunPivot:rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgdh0"]
+bg_color = Color(0.17522371, 0.17522374, 0.17522362, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwamx"]
+bg_color = Color(0.3432181, 0.6949744, 0.3008061, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kmdgl"]
+properties/0/path = NodePath("Health:health")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="wz551" type="VehicleBody3D" unique_id=1620226143]
 mass = 100.0
 center_of_mass_mode = 1
@@ -515,13 +529,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00075329543, -0.059973102, 
 mesh = SubResource("ArrayMesh_heurr")
 
 [node name="gunPivot" type="Node3D" parent="body/turretPivot" unique_id=1347170443]
+transform = Transform3D(1, 0, 0, 0, 0.98480767, 0.17364816, 0, -0.17364816, 0.98480767, 0, 0.014063838, 0.016503127)
 
 [node name="gun" type="MeshInstance3D" parent="body/turretPivot/gunPivot" unique_id=1767462660]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00075329543, -0.059973102, -0.013728352)
+transform = Transform3D(1, 0, 0, 0, 0.98480785, -0.17364818, 0, 0.17364818, 0.98480785, 0.00075329543, -0.06766252, -0.04262858)
 mesh = SubResource("ArrayMesh_e6t4r")
 
 [node name="Muzzle" type="Marker3D" parent="body/turretPivot/gunPivot" unique_id=2013571337]
-transform = Transform3D(1, 0, 0, 0, 0.9884893, 0.15129164, 0, -0.15129164, 0.9884893, -0.002976048, 0.0033632584, -0.041765064)
+transform = Transform3D(1, 0, 0, 0, 0.99974346, -0.022656187, 0, 0.022656187, 0.99974346, -0.002976048, 0.003948696, -0.25201088)
 
 [node name="DrawCall_0725" type="Node3D" parent="body" unique_id=84711686]
 
@@ -540,11 +555,12 @@ shape = SubResource("BoxShape3D_mhnx1")
 [node name="CenterOfMass" type="Node3D" parent="." unique_id=509559680]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045879245, -0.0025109649)
 
-[node name="aimingController" type="Node3D" parent="." unique_id=2013294668 node_paths=PackedStringArray("camera", "gun_pivot", "turret_pivot")]
+[node name="aimingController" type="Node3D" parent="." unique_id=2013294668 node_paths=PackedStringArray("camera", "gun_pivot", "turret_pivot", "mouse_crossair")]
 script = ExtResource("5_vtlgq")
 camera = NodePath("../SpringArm3D/Camera3D")
 gun_pivot = NodePath("../body/turretPivot/gunPivot")
 turret_pivot = NodePath("../body/turretPivot")
+mouse_crossair = NodePath("../hud/mouse_crossair")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1204556082]
 replication_config = SubResource("SceneReplicationConfig_vtlgq")
@@ -555,3 +571,37 @@ muzzle = NodePath("../body/turretPivot/gunPivot/Muzzle")
 bullet_scene = ExtResource("7_jbsop")
 
 [node name="bullets" type="Node3D" parent="MachineGun" unique_id=997301414]
+
+[node name="hud" type="CanvasLayer" parent="." unique_id=74931680]
+
+[node name="mouse_crossair" type="Control" parent="hud" unique_id=306974512]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("8_4xs7p")
+
+[node name="health_bar" type="ProgressBar" parent="hud" unique_id=889841136 node_paths=PackedStringArray("health_node")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -651.0
+offset_bottom = -615.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dgdh0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dwamx")
+max_value = 1000.0
+step = 5.0
+show_percentage = false
+script = ExtResource("9_7tw2q")
+health_node = NodePath("../../Health")
+
+[node name="Health" type="Node" parent="." unique_id=1685241606]
+script = ExtResource("9_kmdgl")
+
+[node name="HealthSync" type="MultiplayerSynchronizer" parent="." unique_id=1360245499]
+replication_config = SubResource("SceneReplicationConfig_kmdgl")

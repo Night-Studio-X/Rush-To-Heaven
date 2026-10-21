@@ -6,6 +6,7 @@ var last_shot_time:float = 0
 @export var muzzle: Marker3D
 @onready var bullets = $bullets
 @export var bullet_scene: PackedScene
+@export var damage: int = 10
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,7 +31,7 @@ func request_fire()->void:
 		sender = 1
 	if sender != get_parent().name.to_int():
 		return 
-	var now := Time.get_ticks_msec() / 1000
+	var now := Time.get_ticks_msec() / 1000.0
 	if now - last_shot_time < FIRE_INTERVAL:
 		return
 	last_shot_time = now
@@ -48,7 +49,12 @@ func _fire_ray() -> void:
 	
 	if not hit.is_empty():
 		target = hit.position 
+		var health_node = hit.collider.get_node_or_null('Health')
+		print("ray hit: ", hit.collider.name, " | health node: ", health_node)
+		if health_node:
+			health_node.take_damage(damage)
 	fire_bullet.rpc(origin, target)
+	
 @rpc('any_peer','call_local','unreliable')
 func fire_bullet(origin:Vector3, target: Vector3):
 	var bullet = bullet_scene.instantiate()

@@ -41,6 +41,7 @@ var current_steering: float = 0.0
 
 func _enter_tree()->void:
 	set_multiplayer_authority(name.to_int())
+	$HealthSync.set_multiplayer_authority(1) #it will always belong to the server
 
 func _ready() -> void:
 	$SpringArm3D/Camera3D.current = is_multiplayer_authority()
