@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bi5xena11ifoa" path="res://Assets/Prefabs/bullet_pack_n1/textures/Bullet_Pack01_baseColor.png" id="1_uswgi"]
 [ext_resource type="Texture2D" uid="uid://drld5sk6wbh1s" path="res://Assets/Prefabs/bullet_pack_n1/textures/Bullet_Pack01_metallicRoughness.png" id="2_8vx83"]
 [ext_resource type="Texture2D" uid="uid://cfpkaxweekrui" path="res://Assets/Prefabs/bullet_pack_n1/textures/Bullet_Pack01_normal.png" id="3_gjhps"]
+[ext_resource type="Shader" uid="uid://c7hm74ckm1n41" path="res://Shaders/12.7mm bullet shader.gdshader" id="5_gjhps"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwabj"]
 resource_name = "Bullet_Pack01"
@@ -53,9 +54,23 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6e6yt")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mhnx1"]
-size = Vector3(1, 1.0483398, 1)
+size = Vector3(0.3746338, 0.3567505, 0.38238525)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwamx"]
+render_priority = 0
+shader = ExtResource("5_gjhps")
+shader_parameter/trail_color = Color(1, 0.7, 0.2, 1)
+shader_parameter/intensity = 3.0
+shader_parameter/trail_length = 1.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mhnx1"]
+material = SubResource("ShaderMaterial_dwamx")
+top_radius = 0.05
+bottom_radius = 0.1821289
+height = 56.117615
 
 [node name="bullet" type="CharacterBody3D" unique_id=994151704]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 motion_mode = 1
 script = ExtResource("1_8vx83")
 
@@ -64,5 +79,12 @@ transform = Transform3D(-4.3711387e-10, 0, 0.01, 0, 0.01, 0, -0.01, 0, -4.371138
 mesh = SubResource("ArrayMesh_gy7yj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1134659160]
-transform = Transform3D(0.09813893, 0, 0, 0, -4.371139e-08, -0.09623116, 0, 1, -4.206398e-09, 0, 0.5235215, 0)
+transform = Transform3D(0.09813893, 0, 0, 0, -4.371139e-08, -0.09623117, 0, 1, -4.206398e-09, 0.0060198745, 0.0009938853, -0.0294252)
 shape = SubResource("BoxShape3D_mhnx1")
+disabled = true
+
+[node name="trail" type="Node3D" parent="." unique_id=1800746850]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="trail" unique_id=268307333]
+transform = Transform3D(0.10000001, 0, 0, 0, -4.371139e-09, -0.10000001, 0, 0.10000001, -4.371139e-09, 0, -1.1827781e-07, 3.0101538)
+mesh = SubResource("CylinderMesh_mhnx1")

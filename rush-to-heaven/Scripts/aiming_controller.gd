@@ -4,12 +4,13 @@ extends Node3D
 @export var gun_pivot: Node3D
 @export var turret_pivot: Node3D
 @export var turret_speed: float = 90.0
+@export var mouse_crossair: Control
 
 func _process(delta: float) -> void:
 	
 	if not is_multiplayer_authority():
 		return
-	var cursor_pos = get_viewport().get_viewport().get_visible_rect().size / 2.0
+	var cursor_pos = mouse_crossair.get_mouse_crossair_position()
 	
 	var ray_origin = camera.project_ray_origin(cursor_pos)
 	var ray_direction = camera.project_ray_normal(cursor_pos)
